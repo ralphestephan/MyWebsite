@@ -1,0 +1,87 @@
+<!-- Yellow (Dog) Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellow - My Dog</title>
+    <link rel="stylesheet" href="css/yellow.css">
+</head>
+<body>
+
+    <!-- Navigation to go back to the home page -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <h1>Meet Yellow</h1>
+    <p>Yellow is my golden retriever, and here are some memories of his life stages. Enjoy the journey from puppyhood to adulthood!</p>
+
+    <!-- Tabs for periods of Yellow's life -->
+    <div class="tabs">
+        <button class="tablinks" onclick="openPeriod(event, 'Puppy')">Puppy</button>
+        <button class="tablinks" onclick="openPeriod(event, 'Teenager')">Teenager</button>
+        <button class="tablinks" onclick="openPeriod(event, 'Young')">Young</button>
+        <button class="tablinks" onclick="openPeriod(event, 'Adult')">Adult</button>
+    </div>
+
+    <!-- Content for each period -->
+    <div id="Puppy" class="tabcontent">
+        <h2>Puppy</h2>
+        <p>Yellow as a playful and energetic puppy!</p>
+        <img src="images/puppy.jpg" alt="Yellow as a puppy">
+    </div>
+
+    <div id="Teenager" class="tabcontent">
+        <h2>Teenager</h2>
+        <p>Yellow in his teenage years, full of energy and curiosity.</p>
+        <img src="images/teenager.jpg" alt="Yellow as a teenager">
+    </div>
+
+    <div id="Young" class="tabcontent">
+        <h2>Young</h2>
+        <p>Yellow as a young adult, strong and active.</p>
+        <img src="images/young.jpg" alt="Yellow as a young adult">
+    </div>
+
+    <div id="Adult" class="tabcontent">
+        <h2>Adult</h2>
+        <p>Yellow as a full-grown adult, calm and wise.</p>
+        <img src="images/adult.jpg" alt="Yellow as an adult">
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+        <p><strong>Disclaimer:</strong> This document is for educational purposes only. All information presented is based on research from credible sources and does not serve as professional advice.</p>
+    </div>
+
+    <!-- JavaScript for Tab Navigation -->
+    <script>
+        function openPeriod(evt, periodName) {
+            var i, tabcontent, tablinks;
+
+            // Hide all tab contents
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Remove active class from all tabs
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the selected tab content and add active class to the clicked tab
+            document.getElementById(periodName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Set the default tab to "Puppy"
+        document.getElementById("Puppy").style.display = "block";
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* CV Header */
+.cv-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cv-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+.cv-header p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.cv-header a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.cv-header a:hover {
+    text-decoration: underline;
+}
+
+/* CV Sections */
+.cv-section {
+    margin-bottom: 30px;
+}
+
+.cv-section h2 {
+    font-size: 1.8em;
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
+.cv-section h3 {
+    font-size: 1.4em;
+    color: #444;
+}
+
+.cv-section ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+/* Navigation */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Disclaimer */
+.disclaimer {
+    background-color: #f9e5d8;
+    padding: 15px;
+    border-top: 2px solid #e6b7b0;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 30px;
+}

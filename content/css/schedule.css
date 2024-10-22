@@ -1,0 +1,72 @@
+/* Styling for the Weekly Schedule Page */
+
+/* Overall background color */
+body {
+    background-color: #f0f0f5; /* Light gray-blue background */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Schedule container to center the content */
+.schedule-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+/* Schedule Table */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Table Headers */
+.schedule-table th {
+    background-color: #0073e6; /* Blue header background */
+    color: white;
+    font-size: 1.2em;
+    padding: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Table Cells */
+.schedule-table td {
+    padding: 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 1.1em;
+    background-color: #f9f9f9; /* Light background for cells */
+}
+
+/* Row hover effect */
+.schedule-table tr:hover {
+    background-color: #e6f7ff; /* Lighter blue hover effect */
+}
+
+/* Disclaimer at the bottom */
+.disclaimer {
+    background-color: rgba(181, 123, 86, 0.8); /* Light brown, translucent */
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
