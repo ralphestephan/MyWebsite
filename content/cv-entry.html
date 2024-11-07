@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Data Entry</title>
+    <link rel="stylesheet" href="css/cv-entry-style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="home-link">Home</a>
+    </nav>
+
+    <div class="container">
+        <h1>Fill in Your Resume Information</h1>
+
+        <form id="cvForm" onsubmit="submitCV(event)">
+            <section>
+                <h2>Personal Information</h2>
+                <label>Name: <input type="text" id="name" required></label><br>
+                <label>Location: <input type="text" id="location" required></label><br>
+                <label>Email: <input type="email" id="email" required></label><br>
+                <label>Phone: <input type="text" id="phone" required></label><br>
+                <label>Personal Profile: <textarea id="profile" rows="4"></textarea></label><br>
+            </section>
+
+            <section>
+                <h2>Education</h2>
+                <div id="educationFields">
+                    <div class="education">
+                        <label>Institution: <input type="text" class="institution" required></label><br>
+                        <label>Degree: <input type="text" class="degree" required></label><br>
+                        <label>Years: <input type="text" class="years" required></label><br>
+                    </div>
+                </div>
+                <button type="button" onclick="addEducation()">Add Another Education</button>
+            </section>
+
+            <section>
+                <h2>Experience</h2>
+                <div id="experienceFields">
+                    <div class="experience">
+                        <label>Job Title: <input type="text" class="jobTitle" required></label><br>
+                        <label>Company: <input type="text" class="company" required></label><br>
+                        <label>Duration: <input type="text" class="duration" required></label><br>
+                    </div>
+                </div>
+                <button type="button" onclick="addExperience()">Add Another Experience</button>
+            </section>
+
+            <section>
+                <h2>Skills</h2>
+                <div id="skillsFields">
+                    <div class="skill">
+                        <label>Skill: <input type="text" class="skills" required></label><br>
+                    </div>
+                </div>
+                <button type="button" onclick="addSkill()">Add Another Skill</button>
+            </section>
+
+            <section>
+                <h2>Languages</h2>
+                <label>Language: <input type="text" id="language" required></label><br>
+                <label>Fluency:
+                    <select id="fluency" required>
+                        <option value="Fluent">Fluent</option>
+                        <option value="Native">Native</option>
+                        <option value="Advanced">Advanced</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Beginner">Beginner</option>
+                    </select>
+                </label><br>
+            </section>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <footer class="disclaimer">
+        <p>Disclaimer: This document is for educational purposes only. All information presented is based on research from credible sources and does not serve as professional advice.</p>
+    </footer>
+
+    <script>
+        function addEducation() {
+            const educationFields = document.getElementById('educationFields');
+            const newEducation = document.createElement('div');
+            newEducation.classList.add('education');
+            newEducation.innerHTML = `
+                <label>Institution: <input type="text" class="institution" required></label><br>
+                <label>Degree: <input type="text" class="degree" required></label><br>
+                <label>Years: <input type="text" class="years" required></label><br>
+            `;
+            educationFields.appendChild(newEducation);
+        }
+
+        function addExperience() {
+            const experienceFields = document.getElementById('experienceFields');
+            const newExperience = document.createElement('div');
+            newExperience.classList.add('experience');
+            newExperience.innerHTML = `
+                <label>Job Title: <input type="text" class="jobTitle" required></label><br>
+                <label>Company: <input type="text" class="company" required></label><br>
+                <label>Duration: <input type="text" class="duration" required></label><br>
+            `;
+            experienceFields.appendChild(newExperience);
+        }
+
+        function addSkill() {
+            const skillsFields = document.getElementById('skillsFields');
+            const newSkill = document.createElement('div');
+            newSkill.classList.add('skill');
+            newSkill.innerHTML = `
+                <label>Skill: <input type="text" class="skills" required></label><br>
+            `;
+            skillsFields.appendChild(newSkill);
+        }
+
+        function submitCV(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Collect form data and prepare query string
+            const queryString = new URLSearchParams();
+            queryString.append("name", document.getElementById("name").value);
+            queryString.append("location", document.getElementById("location").value);
+            queryString.append("email", document.getElementById("email").value);
+            queryString.append("phone", document.getElementById("phone").value);
+            queryString.append("profile", document.getElementById("profile").value);
+
+            document.querySelectorAll('.education').forEach((field, index) => {
+                queryString.append(`institution_${index}`, field.querySelector('.institution').value);
+                queryString.append(`degree_${index}`, field.querySelector('.degree').value);
+                queryString.append(`years_${index}`, field.querySelector('.years').value);
+            });
+
+            document.querySelectorAll('.experience').forEach((field, index) => {
+                queryString.append(`jobTitle_${index}`, field.querySelector('.jobTitle').value);
+                queryString.append(`company_${index}`, field.querySelector('.company').value);
+                queryString.append(`duration_${index}`, field.querySelector('.duration').value);
+            });
+
+            document.querySelectorAll('.skills').forEach((field, index) => {
+                queryString.append(`skills_${index}`, field.value);
+            });
+
+            queryString.append("language", document.getElementById("language").value);
+            queryString.append("fluency", document.getElementById("fluency").value);
+
+            // Redirect to submission page with query string
+            window.location.href = `cv-submission.html?${queryString.toString()}`;
+        }
+    </script>
+</body>
+</html>
