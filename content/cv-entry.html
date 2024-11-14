@@ -60,17 +60,22 @@
 
             <section>
                 <h2>Languages</h2>
-                <label>Language: <input type="text" id="language" required></label><br>
-                <label>Fluency:
-                    <select id="fluency" required>
-                        <option value="Fluent">Fluent</option>
-                        <option value="Native">Native</option>
-                        <option value="Advanced">Advanced</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Beginner">Beginner</option>
-                    </select>
-                </label><br>
+                <div id="languages-section">
+                    <div class="languages">
+                        <label for="language">Language:</label>
+                        <input type="text" id="language" class="language" placeholder="Enter a language" required>
+                        <label for="fluency">Fluency:</label>
+                        <select id="fluency" class="fluency">
+                            <option value="Fluent">Fluent</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Beginner">Beginner</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" onclick="addLanguage()">Add Another Language</button>
             </section>
+
 
             <button type="submit">Submit</button>
         </form>
@@ -115,6 +120,23 @@
             skillsFields.appendChild(newSkill);
         }
 
+        function addLanguage() {
+            const newLanguageEntry = document.createElement('div');
+            newLanguageEntry.classList.add('languages');
+            newLanguageEntry.innerHTML = `
+                <label for="language">Language:</label>
+                <input type="text" class="language" placeholder="Enter a language" required>
+                <label for="fluency">Fluency:</label>
+                <select class="fluency">
+                    <option value="Fluent">Fluent</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Beginner">Beginner</option>
+                </select>
+            `;
+            document.getElementById('languages-section').appendChild(newLanguageEntry);
+        }
+
         function submitCV(event) {
             event.preventDefault(); // Prevent form submission
 
@@ -142,8 +164,10 @@
                 queryString.append(`skills_${index}`, field.value);
             });
 
-            queryString.append("language", document.getElementById("language").value);
-            queryString.append("fluency", document.getElementById("fluency").value);
+            document.querySelectorAll('.languages').forEach((field, index) => {
+                queryString.append(`language_${index}`, field.querySelector('.language').value);
+                queryString.append(`fluency_${index}`, field.querySelector('.fluency').value);
+            });
 
             // Redirect to submission page with query string
             window.location.href = `cv-submission.html?${queryString.toString()}`;

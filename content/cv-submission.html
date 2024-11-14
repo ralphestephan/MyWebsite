@@ -51,10 +51,12 @@
                 <p>${Object.keys(data).filter(key => key.startsWith("skills")).map(key => data[key]).join('<br>')}</p>
 
                 <h2>Languages</h2>
-                <p><strong>${data.language}:</strong> ${data.fluency}</p>
+                ${Object.keys(data).filter(key => key.startsWith("language")).map((key, index) => `
+                    <p><strong>${data[`language_${index}`]}:</strong> ${data[`fluency_${index}`]}</p>
+                `).join('')}
             `;
 
-                        // Display the CV content
+            // Display the CV content
             document.getElementById("cvDisplay").innerHTML = cvContent;
         }
 
