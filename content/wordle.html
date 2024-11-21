@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Game</title>
+    <link rel="stylesheet" href="css/wordle.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> | <a href="tictactoe.html">TicTacToe</a> | <a href="wordle.html">Wordle</a>
+    </nav>
+
+    <h1>Wordle Game</h1>
+
+    <div id="game">
+        <div id="guessGrid">
+            <!-- 6x5 Grid for Guesses -->
+            <div class="row" id="row1"></div>
+            <div class="row" id="row2"></div>
+            <div class="row" id="row3"></div>
+            <div class="row" id="row4"></div>
+            <div class="row" id="row5"></div>
+            <div class="row" id="row6"></div>
+        </div>
+
+        <div id="keyboard">
+            <!-- Keyboard Layout -->
+            <div class="keyboard-row">
+                <button class="key">Q</button>
+                <button class="key">W</button>
+                <button class="key">E</button>
+                <button class="key">R</button>
+                <button class="key">T</button>
+                <button class="key">Y</button>
+                <button class="key">U</button>
+                <button class="key">I</button>
+                <button class="key">O</button>
+                <button class="key">P</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key">A</button>
+                <button class="key">S</button>
+                <button class="key">D</button>
+                <button class="key">F</button>
+                <button class="key">G</button>
+                <button class="key">H</button>
+                <button class="key">J</button>
+                <button class="key">K</button>
+                <button class="key">L</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key">Enter</button>
+                <button class="key">Z</button>
+                <button class="key">X</button>
+                <button class="key">C</button>
+                <button class="key">V</button>
+                <button class="key">B</button>
+                <button class="key">N</button>
+                <button class="key">M</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Disclaimer: This document is for educational purposes only. All information presented is based on research from credible sources and does not serve as professional advice.</p>
+        </footer>
+    </div>
+
+    <script>
+      // List of possible words for the game
+      const wordList = ['apple', 'grape', 'lemon', 'peach', 'plumb'];
+
+      // Choose a random word from the list
+      const correctWord = wordList[Math.floor(Math.random() * wordList.length)];
+      let currentGuess = "";
+      let guessCount = 0;
+
+      function submitGuess() {
+          if (currentGuess.length !== 5) {
+              alert("Please enter a 5-letter word.");
+              return;
+          }
+
+          const row = document.getElementById(`row${guessCount + 1}`);
+          if (!row) return;
+
+          // Check the guess against the correct word
+          const guessArray = currentGuess.split('');
+          guessArray.forEach((letter, index) => {
+              const letterBox = document.createElement('div');
+              letterBox.classList.add('letter-box');
+              if (correctWord[index] === letter) {
+                  letterBox.classList.add('correct'); // Green
+              } else if (correctWord.includes(letter)) {
+                  letterBox.classList.add('misplaced'); // Yellow
+              } else {
+                  letterBox.classList.add('incorrect'); // Gray
+              }
+              letterBox.innerText = letter;
+              row.appendChild(letterBox);
+          });
+
+          // Update keyboard with colors
+          updateKeyboard(guessArray);
+
+          if (currentGuess === correctWord) {
+              setTimeout(() => alert('You won!'), 500);
+          } else if (guessCount === 5) {
+              setTimeout(() => alert('Game Over! The correct word was: ' + correctWord), 500);
+          }
+
+          guessCount++;
+          currentGuess = "";
+          document.getElementById("guessInput").value = "";
+      }
+
+      function updateKeyboard(guessArray) {
+          guessArray.forEach((letter) => {
+              const keyButton = document.querySelector(`button.key[data-letter="${letter}"]`);
+              if (keyButton) {
+                  keyButton.classList.add('used');
+                  if (correctWord.includes(letter)) {
+                      keyButton.classList.add('misplaced');
+                  } else {
+                      keyButton.classList.add('incorrect');
+                  }
+              }
+          });
+      }
+
+      document.querySelectorAll('.key').forEach(key => {
+          key.addEventListener('click', () => {
+              if (key.innerText === "Enter") {
+                  submitGuess();
+              } else {
+                  currentGuess += key.innerText;
+                  console.log(currentGuess);
+              }
+          });
+      });
+
+    </script>
+</body>
+</html>

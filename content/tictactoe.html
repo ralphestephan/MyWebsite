@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicTacToe Game</title>
+    <link rel="stylesheet" href="css/tictactoe.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="home-link">Home</a>
+        <a href="tictactoe.html" class="game-link">TicTacToe</a>
+        <a href="wordle.html" class="game-link">Wordle</a>
+    </nav>
+
+    <h1>TicTacToe Game</h1>
+    <div id="game-board">
+        <div class="row">
+            <button class="cell" data-index="0"></button>
+            <button class="cell" data-index="1"></button>
+            <button class="cell" data-index="2"></button>
+        </div>
+        <div class="row">
+            <button class="cell" data-index="3"></button>
+            <button class="cell" data-index="4"></button>
+            <button class="cell" data-index="5"></button>
+        </div>
+        <div class="row">
+            <button class="cell" data-index="6"></button>
+            <button class="cell" data-index="7"></button>
+            <button class="cell" data-index="8"></button>
+        </div>
+    </div>
+
+    <p id="status">Player X's turn</p>
+
+    <footer>
+        <p>Disclaimer: This document is for educational purposes only. All information presented is based on research from credible sources and does not serve as professional advice.</p>
+    </footer>
+
+    <script>
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let gameActive = true;
+
+        const cells = document.querySelectorAll('.cell');
+        const statusDisplay = document.getElementById('status');
+        const gameBoard = document.getElementById("game-board");
+
+        function handleClick(event) {
+            const clickedIndex = event.target.getAttribute('data-index');
+
+            if (board[clickedIndex] !== "" || !gameActive) {
+                return; // Cell is already filled or game is over
+            }
+
+            board[clickedIndex] = currentPlayer;
+            event.target.textContent = currentPlayer;
+
+            checkWinner();
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            statusDisplay.textContent = `Player ${currentPlayer}'s turn`;
+        }
+
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    gameActive = false;
+                    displayWinner(board[a]);
+                    return;
+                }
+            }
+
+            if (!board.includes("")) {
+                gameActive = false;
+                statusDisplay.textContent = "It's a tie!";
+            }
+        }
+
+        function displayWinner(winner) {
+            const popup = document.createElement("div");
+            popup.classList.add("popup");
+            popup.innerHTML = `<h2>Player ${winner} wins!</h2><button onclick="restartGame()">Restart</button>`;
+            document.body.appendChild(popup);
+        }
+
+        function restartGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            gameActive = true;
+            currentPlayer = "X";
+            cells.forEach(cell => cell.textContent = "");
+            statusDisplay.textContent = `Player X's turn`;
+
+            const popup = document.querySelector(".popup");
+            if (popup) popup.remove();
+        }
+
+        cells.forEach(cell => cell.addEventListener("click", handleClick));
+
+
+    </script>
+</body>
+</html>
